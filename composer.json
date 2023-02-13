@@ -1,0 +1,6 @@
+{
+    "require": {
+        "orhanerday/open-ai": "^3.5",
+        "league/commonmark": "^2.3"
+    }
+}
