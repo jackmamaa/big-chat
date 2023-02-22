@@ -43,8 +43,8 @@ $prompt = $prompt . "Question:\n" . $_POST['message'] . $please_use_above . "\n\
 $complete = json_decode( $open_ai->completion( [
     'model' => $version,
     'prompt' => $prompt,
-    'temperature' => 0.9,
-    'max_tokens' => 2000, //最大字符数，建议别改大了
+    'temperature' => 0.8,
+    'max_tokens' => 1024, //最大字符数，建议别改大了
     'top_p' => 1,
     'frequency_penalty' => 0,
     'presence_penalty' => 0,
@@ -52,7 +52,7 @@ $complete = json_decode( $open_ai->completion( [
         "\nNote:",
         "\nQuestion:"
     ]
-] ) );
+]));
 
 // get message text
 if( isset( $complete->choices[0]->text ) ) {
@@ -65,11 +65,6 @@ if( isset( $complete->choices[0]->text ) ) {
 
 $converter = new CommonMarkConverter();
 $styled = $converter->convert( $text );
-
-$check = str_split($text,12);
-if ( $check[0] != "大聪明：" ) {
-	$text = "大聪明：" . $text;
-}
 
 // return response
 echo json_encode( [

@@ -3,7 +3,8 @@ html {
     -webkit-text-size-adjust:100%;
 }
 body {
-    margin:0;
+    margin:0 auto;
+	background-color:#343541;
 }
 main {
     display:block;
@@ -136,7 +137,6 @@ body {
 }
 body * {
     padding:0;
-    margin:0;
     box-sizing:border-box;
 }
 body.whole-screen {
@@ -443,9 +443,7 @@ html {
     --zhuluan-switch-box:30px;
     --zhuluan-primary-border-radius:5px;
 }
-body {
-    background-color:var(--zhuluan-custom-ff-color)
-}
+
 @font-face {
     font-family:"iconfont";
     src:url('../../css/iconfont.woff2') format('woff2'), url('../../css/iconfont.woff') format('woff'), url('../../css/iconfont.ttf') format('truetype');
@@ -753,7 +751,7 @@ a.unlinks-deco {
     font-family:Open Sans, Arial, sans-serif;
 }
 .layout-bar .btn {
-    width:100px;
+    width:80px;
     margin-left:14px;
     text-align:center;
     height:36px;
@@ -794,7 +792,7 @@ a.unlinks-deco {
 .precast-block .title {
     width:65px;
     text-indent:10px;
-    color:var(--zhuluan-black-80-color)
+    color:var(--zhuluan-black-80-color);
 }
 .kw-text {
     padding-top:10px;
@@ -811,7 +809,7 @@ a.unlinks-deco {
     margin-right:4px;
 }
 .precast-block .box {
-    flex:1
+    flex:1;
 }
 #kw-target-box {
     border-radius:var(--zhuluan-primary-border-radius) var(--zhuluan-primary-border-radius) 0 0;
@@ -820,16 +818,16 @@ a.unlinks-deco {
     -ms-border-radius:;
     -o-border-radius:;
 }
-#kw-target-box #kw-target {
+#kw-target-box #transcript {
     display:block;
     height:36px;
     width:100%;
-    padding-left:1px;
+    padding-left:0px;
     font-size:15px;
     font-weight:500;
     color:#fff;
 }
-#kw-target {
+#transcript {
     color:var(--zhuluan-custom-b8-color);
 }
 #kw-tags {
@@ -1361,7 +1359,7 @@ a.unlinks-deco {
 }
 @media (min-width:1200px) {
     .container {
-        width:85%;
+        width:auth;
     }
 }
 @media (max-width:1444px) and (min-width:993px) {
