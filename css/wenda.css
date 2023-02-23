@@ -29,14 +29,6 @@
     height:auto;
     padding-top: 6px;
 }
-#custom-tooltip {
-    display: none;
-    margin-left: 40px;
-    padding: 5px 12px;
-    background-color: #000000df;
-    border-radius: 4px;
-    color: #fff;
-}
 
 /* The Modal (background) */
 .modal_box {
@@ -110,6 +102,16 @@
     background-color:#00000078;
     border-radius:var(--zhuluan-primary-border-radius);
     transition:all .5s
+}
+
+.copy_success {
+    padding: 5;
+    background-color: #343541;
+    border-radius: 15px;
+    color: #ffffff73;
+    position: absolute;
+    font-size: 1px;
+    display: none;
 }
 
 #start-button {
