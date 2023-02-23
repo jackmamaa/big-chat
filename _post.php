@@ -20,7 +20,7 @@ $open_ai = new OpenAi($open_ai_key);
 
 // 设置默认的请求文本prompt
 $prompt = "这是前置内容，每次提交都伴随此，可以改为空\n\n";
-$version="text-davinci-003";
+$version = $_POST['model'];
 // 添加文本到prompt
 if( empty( $content ) ) {
     // 如果没有内容，下面是默认内容

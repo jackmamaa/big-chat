@@ -97,7 +97,7 @@ $(document).ready(function () {
                 $("#"+answer).text(str_)//打印时加光标
             }
             todown_now();
-        },50)
+        },25)
     }
 	
     function send_post() {
@@ -121,9 +121,10 @@ $(document).ready(function () {
             url: "_post.php",
             data: {
                 message: prompt,
-                content:$("#keep").prop("checked")?JSON.stringify(contextarray):[],
-                key:$("#key").val(),
-                id:$("#id").val(),
+                content: $("#keep").prop("checked")?JSON.stringify(contextarray):[],
+                key: $("#key").val(),
+                model: $("#model").val(),
+                id: randomString(8),
             },
             dataType: "json",
             success: function (results) {
