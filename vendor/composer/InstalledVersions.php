@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '1e3eb3abddb8369331ff55f26fa3d3bf7a83435c',
+    'reference' => '248897b54cc3d624257fa1a735d00fba7e88ed95',
     'name' => '__root__',
   ),
   'versions' => 
@@ -41,7 +41,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '1e3eb3abddb8369331ff55f26fa3d3bf7a83435c',
+      'reference' => '248897b54cc3d624257fa1a735d00fba7e88ed95',
     ),
     'dflydev/dot-access-data' => 
     array (
