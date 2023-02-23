@@ -72,15 +72,20 @@ $(document).ready(function () {
         layer.msg("清理完毕！",{time:1000});
         return false;
     });
+    $("#restart_chat").click(function () {
+        $("#article-wrapper").html("");
+        window.location.href = window.location.href;
+        return false;
+    });
     
     function articlewrapper(answer,str){
         let answer_div = randomString(24);
-        let copy_success = randomString(22)
+        //let copy_success = randomString(22)
         var clipboard = new ClipboardJS('.'+answer);
         clipboard.on('success', function(e) {
-            document.getElementById(copy_success).style.display = "inline";
+            document.getElementById("copy_success").style.display = "inline";
             setTimeout( function() {
-                document.getElementById(copy_success).style.display = "none";
+                document.getElementById("copy_success").style.display = "none";
             }, 1000);
             e.clearSelection();
         });
@@ -89,7 +94,7 @@ $(document).ready(function () {
         });
         
         $("#article-wrapper").append('<div id="'+answer_div+'" data-flex="cross:start" style="margin:5"><div class="answer" title="大聪明"><img class="icon" src="static/big_clever.svg"></div></div>')
-        $("#"+answer_div).append('<div class="as-context"><li class="article-content"><pre id="'+answer+'" style="margin:0"></pre></li><span class="copy_success" id="'+copy_success+'">复制成功</sapn></div><div class="answer" title="复制回答"><svg t="1676979873149" class="'+answer+'" id="copy_data" data-clipboard-target="#'+answer+'" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6847" width="30" height="25" style="position:relative;right:14;"><path d="M576 384a64 64 0 0 1 64 64v341.333333a64 64 0 0 1-64 64H234.666667a64 64 0 0 1-64-64V448a64 64 0 0 1 64-64h341.333333z m0 64H234.666667v341.333333h341.333333V448z m-64 192v64H298.666667v-64h213.333333zM789.333333 170.666667a64 64 0 0 1 64 64v341.333333a64 64 0 0 1-64 64h-106.666666v-64h106.666666V234.666667H448v106.666666h-64v-106.666666a64 64 0 0 1 64-64h341.333333zM512 533.333333v64H298.666667v-64h213.333333z" fill="#707070" p-id="6848"></path></svg>');
+        $("#"+answer_div).append('<div class="as-context"><li class="article-content"><pre id="'+answer+'" style="margin:0"></pre></li></div><div class="answer" title="复制回答"><svg t="1676979873149" class="'+answer+'" id="copy_data" data-clipboard-target="#'+answer+'" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6847" width="30" height="25" style="position:relative;right:14;"><path d="M576 384a64 64 0 0 1 64 64v341.333333a64 64 0 0 1-64 64H234.666667a64 64 0 0 1-64-64V448a64 64 0 0 1 64-64h341.333333z m0 64H234.666667v341.333333h341.333333V448z m-64 192v64H298.666667v-64h213.333333zM789.333333 170.666667a64 64 0 0 1 64 64v341.333333a64 64 0 0 1-64 64h-106.666666v-64h106.666666V234.666667H448v106.666666h-64v-106.666666a64 64 0 0 1 64-64h341.333333zM512 533.333333v64H298.666667v-64h213.333333z" fill="#707070" p-id="6848"></path></svg>');
         let str_ = ''
         let i = 0
         let timer = setInterval(()=>{

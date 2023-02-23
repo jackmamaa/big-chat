@@ -104,13 +104,17 @@
     transition:all .5s
 }
 
-.copy_success {
-    padding: 5;
-    background-color: #343541;
+#copy_success {
+    padding: 10;
+    background-color: rgb(52 53 65);
     border-radius: 15px;
     color: #ffffff73;
-    position: absolute;
-    font-size: 1px;
+    position: fixed;
+    font-size: 15px;
+    left: 50%;
+    top: 50%;
+    margin: -42.5px 0 0 -42.5px;
+    z-index: 1;
     display: none;
 }
 
@@ -120,11 +124,14 @@
 }
 
 #clean {
-    display: inline-block;width: 30px;border-radius: 50%;position: fixed;bottom: 32%;right: 7.8%;
+    display: inline-block;width: 30px;border-radius: 50%;position: fixed;bottom: 34%;right: 7.8%;
 }
-#example_btn {
+#restart_chat {
     display: inline-block;width: 30px;border-radius: 50%;position: fixed;bottom: 24%;right: 7.8%;
 }
+/*#example_btn {
+    display: inline-block;width: 30px;border-radius: 50%;position: fixed;bottom: 24%;right: 7.8%;
+}*/
 #go2topd {
     display: inline-block;width: 30px;border-radius: 50%;position: fixed;bottom: 20%;right: 7.8%;
 }
