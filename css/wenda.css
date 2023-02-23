@@ -38,20 +38,73 @@
     color: #fff;
 }
 
-#re_question:hover {
-    cursor:pointer;
-    background-color:#00000078;
-    border-radius:var(--zhuluan-primary-border-radius);
-    transition:all .5s
-}
-#copy_data:hover {
-    cursor:pointer;
-    background-color:#00000078;
-    border-radius:var(--zhuluan-primary-border-radius);
-    transition:all .5s
+/* The Modal (background) */
+.modal_box {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 300px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-.icon:hover {
+/* Modal Content */
+.modal-content {
+    /*background-color: #57596c;*/
+    margin: auto;
+    padding: 10px;
+    width: 80%;
+    max-height: 70%;
+    overflow-y: auto;
+    max-width: 850px;
+    border-radius: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+/* The Close Button */
+.close_box {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: relative;
+    left: 5;
+    bottom: 20;
+}
+
+.close_box:hover,
+.close_box:focus {
+    color: #4c4c4c;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.example_line {
+    background-color: #40414f;
+    margin: 15px;
+    padding: 10px;
+    border-radius: 20px;
+    color:#d5d5d5d1;
+    font-size:15px;
+    font-weight: bold;
+    width: fit-content;
+}
+.example_line:hover {
+    cursor: pointer;
+    box-shadow: 0 0 15px 0 white;
+}
+.icon:hover,
+#copy_data:hover,
+#re_question:hover {
     cursor:pointer;
     background-color:#00000078;
     border-radius:var(--zhuluan-primary-border-radius);
@@ -64,13 +117,16 @@
 }
 
 #clean {
-    display: inline-block;width: 30px;border-radius: 50%;position: fixed;bottom: 25%;right: 7.8%;
+    display: inline-block;width: 30px;border-radius: 50%;position: fixed;bottom: 32%;right: 7.8%;
+}
+#example_btn {
+    display: inline-block;width: 30px;border-radius: 50%;position: fixed;bottom: 24%;right: 7.8%;
 }
 #go2topd {
     display: inline-block;width: 30px;border-radius: 50%;position: fixed;bottom: 20%;right: 7.8%;
 }
 #go2downd {
-    display: inline-block;width: 30px;border-radius: 50%;position: fixed;bottom: 15%;right: 7.8%;
+    display: inline-block;width: 30px;border-radius: 50%;position: fixed;bottom: 16%;right: 7.8%;
 }
 
 #title-box {
@@ -203,12 +259,12 @@ li.article-content {
 	border-radius:15px;
     margin:5
 }
+
+.answer,
 .question { 
     margin:10
 }
-.answer { 
-    margin:10
-}
+
 .article .creating-loading {
     display:none;
     position:absolute;

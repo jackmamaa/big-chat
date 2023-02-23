@@ -6,18 +6,23 @@ use League\CommonMark\CommonMarkConverter;
 
 header( "Content-Type: application/json" );
 
-$context = json_decode( $_POST['context'] ?? "[]" ) ?: [];
+$content = json_decode( $_POST['content'] ?? "[]" ) ?: [];
 
-
-$open_ai_key =$_POST['key']?:'填写您的key';
+$open_ai_key =$_POST['key'];
 //使用你的API key，从OPENAI官网获取
+if (empty($open_ai_key)) {
+    $open_ai_key = $_SERVER['Public_KEY'];
+    $max_tokens = 200;
+} else {
+    $max_tokens = 2048;
+}
 $open_ai = new OpenAi($open_ai_key);
 
 // 设置默认的请求文本prompt
 $prompt = "这是前置内容，每次提交都伴随此，可以改为空\n\n";
 $version="text-davinci-003";
 // 添加文本到prompt
-if( empty( $context ) ) {
+if( empty( $content ) ) {
     // 如果没有内容，下面是默认内容
     $prompt .= "
     Question:\n'我问你个问题，你告诉我答案OK吗？
@@ -29,11 +34,11 @@ if( empty( $context ) ) {
     
     // 将上次的问题和答案作为问题进行提交
     $prompt .= "";
-    $context = array_slice( $context, -5 );
-    foreach( $context as $message ) {
+    $content = array_slice( $content, -5 );
+    foreach( $content as $message ) {
         $prompt .= "Question:\n" . $message[0] . "\n\nAnswer:\n" . $message[1] . "\n\n";
     }
-    $please_use_above = ". Please use the questions and answers above as context for the answer.";
+    $please_use_above = ". Please use the questions and answers above as content for the answer.";
 }
 
 // add new question to prompt
@@ -44,7 +49,7 @@ $complete = json_decode( $open_ai->completion( [
     'model' => $version,
     'prompt' => $prompt,
     'temperature' => 0.8,
-    'max_tokens' => 1024, //最大字符数，建议别改大了
+    'max_tokens' => $max_tokens, //最大字符数，建议别改大了
     'top_p' => 1,
     'frequency_penalty' => 0,
     'presence_penalty' => 0,

@@ -16,6 +16,20 @@ function todown_now() {
     window.scrollTo(0, document.documentElement.scrollHeight);
 }
 
+var modal = document.getElementById("example_modal");
+var btn = document.getElementById("example_btn");
+var span = document.getElementsByClassName("close_box")[0];
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+span.onclick = function() {
+    modal.style.display = "none";
+}
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 /*
 //定时器*/
 const contextarray = [];
@@ -34,6 +48,14 @@ $(document).ready(function () {
         send_post();
         return false;
     });
+    $(".example_line").click(function () {
+        elementID = event.srcElement.id;
+        example_prompt = $("#"+elementID).text();
+        $("#transcript").val(example_prompt);
+        modal.style.display = "none";
+        send_post();
+        return false;
+    });
     /*$(document).on('click','#copy_data', function(e) {
         var myClass = $(this).attr("class");
         //let class_name = $("#"+myClass).text();
@@ -47,9 +69,10 @@ $(document).ready(function () {
     });
     $("#clean").click(function () {
         $("#article-wrapper").html("");
-        layer.msg("清理完毕！");
+        layer.msg("清理完毕！",{time:1000});
         return false;
     });
+    
     function articlewrapper(answer,str){
         let answer_div = randomString(16);
         var clipboard = new ClipboardJS('.'+answer);
@@ -98,7 +121,7 @@ $(document).ready(function () {
             url: "_post.php",
             data: {
                 message: prompt,
-                context:$("#keep").prop("checked")?JSON.stringify(contextarray):[],
+                content:$("#keep").prop("checked")?JSON.stringify(contextarray):[],
                 key:$("#key").val(),
                 id:$("#id").val(),
             },
