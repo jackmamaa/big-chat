@@ -1,32 +1,33 @@
-<?php return array(
-    'root' => array(
-        'name' => '__root__',
-        'pretty_version' => 'dev-main',
-        'version' => 'dev-main',
-        'reference' => '933486400b68a05b49f5e946927619177c87c007',
-        'type' => 'library',
-        'install_path' => __DIR__ . '/../../',
-        'aliases' => array(),
-        'dev' => true,
+<?php return array (
+  'root' => 
+  array (
+    'pretty_version' => 'dev-stream',
+    'version' => 'dev-stream',
+    'aliases' => 
+    array (
     ),
-    'versions' => array(
-        '__root__' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'reference' => '933486400b68a05b49f5e946927619177c87c007',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../../',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'orhanerday/open-ai' => array(
-            'pretty_version' => '3.5',
-            'version' => '3.5.0.0',
-            'reference' => '04abf7a4b651556a6af900475de7bfeab75ec1d5',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../orhanerday/open-ai',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
+    'reference' => '40e2bd91d39798e45d3fc00c2c996f239f658153',
+    'name' => '__root__',
+  ),
+  'versions' => 
+  array (
+    '__root__' => 
+    array (
+      'pretty_version' => 'dev-stream',
+      'version' => 'dev-stream',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '40e2bd91d39798e45d3fc00c2c996f239f658153',
     ),
+    'orhanerday/open-ai' => 
+    array (
+      'pretty_version' => '3.5',
+      'version' => '3.5.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '04abf7a4b651556a6af900475de7bfeab75ec1d5',
+    ),
+  ),
 );
