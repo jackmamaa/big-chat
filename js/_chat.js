@@ -268,21 +268,23 @@ function sendMsg(msg) {
     fetch('/send-message.php', {method: 'POST', body: formData})
     .then(response => response.json())
     .then(data => {
-        uuid = uuidv4();
+        let uuid = uuidv4();
         var Model = $("#model").val();
         var KEY = $("#key").val();
-        var eventSource = new EventSource(`/event-stream.php?chat_history_id=${data.id}&id=${encodeURIComponent(USER_ID)}&model=${Model}&key=${KEY}`);
+        const eventSource = new EventSource(`/event-stream.php?chat_history_id=${data.id}&id=${encodeURIComponent(USER_ID)}&model=${Model}&key=${KEY}`);
         appendMessage(BOT_NAME, BOT_IMG, "left", "", uuid);
-        var div = document.getElementById('a'+uuid);
+        const div = document.getElementById('a'+uuid);
 
         eventSource.onmessage = function (e) {
             if (e.data == "[DONE]") {
                 msgerSendBtn.disabled = false
                 eventSource.close();
             } else {
-                //div.innerHTML += JSON.parse(e.data).choices[0].text.replace(/(?:\r\n|\r|\n)/g, '<br>');
-                div.innerHTML += JSON.parse(e.data).choices[0].text;
-                todown_now();
+                var txt = JSON.parse(e.data).choices[0].delta.content;
+                if (txt != undefined) {
+                    div.innerHTML += txt;
+                    todown_now();
+                }
             }
         };
         eventSource.onerror = function (e) {

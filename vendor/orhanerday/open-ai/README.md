@@ -3,7 +3,7 @@
 
 <br />
 
-*A message from creator,<br />Thank you for visiting the __@orhanerday/open-ai__ repository! We are thrilled to see that it has been downloaded nearly 30k times. If you find this repository helpful or useful, we encourage you to **star** it on GitHub. Starring a repository is a way to show your support for the project. It also helps to increase the visibility of the project and to let the community know that it is valuable. Thanks again for your support and we hope you find the repository useful! <br /><br /> Orhan*
+*A message from creator,<br />Thank you for visiting the __@orhanerday/open-ai__ repository! We are thrilled to see that it has been downloaded nearly 60k times. If you find this repository helpful or useful, we encourage you to **star** it on GitHub. Starring a repository is a way to show your support for the project. It also helps to increase the visibility of the project and to let the community know that it is valuable. Thanks again for your support and we hope you find the repository useful! <br /><br /> Orhan*
 
 <br />
 
@@ -28,7 +28,7 @@
 
 | Project Name           | Required PHP Version | Downloads                                                                                                                                                                     | Description                                                                                                                                                 | Type (Official / Community) | Support                                                                                                                                |
 |------------------------|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| **orhanerday/open-ai** | **PHP 7.4+**         | **[![Total Downloads](https://img.shields.io/packagist/dt/orhanerday/open-ai.svg?style=flat-square)](https://packagist.org/packages/orhanerday/open-ai) <br>🚀nearly 35K 🚀** | **Most downloaded, forked, contributed, huge community supported, and used PHP SDK for OpenAI GPT-3 and DALL-E. It also supports chatGPT-like streaming.** | Community                   | Available, ([Community driven Discord Server](https://discord.gg/xpGUD528XJ) or personal mail [orhan@duck.com](mailto:orhan@duck.com)) |
+| **orhanerday/open-ai** | **PHP 7.4+**         | **[![Total Downloads](https://img.shields.io/packagist/dt/orhanerday/open-ai.svg?style=flat-square)](https://packagist.org/packages/orhanerday/open-ai) <br>🚀nearly 60K 🚀** | **Most downloaded, forked, contributed, huge community supported, and used PHP SDK for OpenAI GPT-3 and DALL-E. It also supports chatGPT-like streaming.** | Community                   | Available, ([Community driven Discord Server](https://discord.gg/xpGUD528XJ) or personal mail [orhan@duck.com](mailto:orhan@duck.com)) |
 | openai-php/client      | PHP 8.1+             | <a href="https://packagist.org/packages/openai-php/client"><img alt="Total Downloads" src="https://img.shields.io/packagist/dt/openai-php/client"></a>                        | OpenAI PHP API client.                                                                                                                                     | Community                   | -                                                                                                                                      |
 
 
@@ -132,7 +132,7 @@ _Linux or macOS_
 ```shell
 export OPENAI_API_KEY=sk-gjtv.....
 ```
-> Getting issues while setting up env? Please read the [article](https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety).
+> Getting issues while setting up env? Please read the [article](https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety) or you can check my [StackOverflow answer](https://stackoverflow.com/a/73904271/15196622) for the Windows® ENV setup.
 
 Create your `index.php` file and paste the following code part into the file.
 
@@ -198,8 +198,6 @@ $originURL = "https://ai.example.com/"; // the empty string mean the origin URL 
 $open_ai = new OpenAi($open_ai_key, $organization, $originURL);
 ````
 
-## Custom URL
-
 ## Completions
 
 Given a prompt, the model will return one or more predicted completions, and can also return the probabilities of
@@ -219,6 +217,19 @@ $complete = $open_ai->completion([
 ### Stream Example
 
 This feature might sound familiar from [ChatGPT](https://chat.openai.com/chat).
+
+<hr>
+
+#### ChatGPT Clone Project
+Video of demo:
+
+https://user-images.githubusercontent.com/22305274/219878695-c76a58c0-5081-402c-a1b5-2b1fd971735a.mp4
+
+ChatGPT clone is a simple web application powered by the OpenAI library and built with PHP. It allows users to chat with an AI language model that responds in real-time. Chat history is saved using cookies, and the project requires the use of an API key and enabled SQLite3.
+
+Url of The ChatGPT-Clone Repo https://github.com/orhanerday/ChatGPT
+
+<hr>
 
 Whether to stream back partial progress. If set, tokens will be sent as data-only [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format) as they become available, with the stream terminated by a data: [DONE] message.
 
@@ -405,6 +416,26 @@ $classification = $open_ai->classification([
     'query' => 'It is a raining day =>(',
     'search_model' => 'ada',
     'model' => 'curie',
+]);
+```
+
+## Chat
+
+Given a chat conversation, the model will return a chat completion response.
+
+ ```php
+$complete = $open_ai->chat([
+    'model' => 'gpt-3.5-turbo',
+    'messages' => [
+        [
+            "role" => "user", 
+            "content" => "Hello!"
+        ]
+    ],
+    'temperature' => 1.0,
+    'max_tokens' => 4096,
+    'frequency_penalty' => 0,
+    'presence_penalty' => 0,
 ]);
 ```
 
