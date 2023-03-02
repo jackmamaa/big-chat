@@ -31,6 +31,8 @@
     color: #d9d9d9;
     box-shadow: 5px 5px 0 0 #0000004d;
     max-width:300px;
+    font-weight: bold;
+    color: #cdcdcd;
 }
 .list_block:hover {
     cursor: pointer;
