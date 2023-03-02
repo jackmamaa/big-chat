@@ -30,6 +30,8 @@
     background-color: #70707014;
     box-shadow: 5px 5px 0 0 #5a5a5a2e;
     max-width:300px;
+    font-weight: bold;
+    color: #5c5c5c;
 }
 .list_block:hover {
     cursor: pointer;
