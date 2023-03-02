@@ -4,12 +4,10 @@ require __DIR__ . '/vendor/autoload.php'; // remove this line if you use a PHP F
 
 use Orhanerday\OpenAi\OpenAi;
 
-
 $open_ai_key = $_GET['key'];
-
 if (empty($open_ai_key)) {
     $open_ai_key = $_SERVER['Public_KEY'];
-    $tokens = 200;
+    $tokens = 500;
 } else {
     $tokens = 2048;
 }

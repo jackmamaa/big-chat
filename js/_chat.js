@@ -1,3 +1,8 @@
+//Global
+layer.config({
+   offset: '400px',
+});
+//Check history
 if (getCookie("id") == "") {
     uuid = uuidv4()
     document.cookie = "id=" + uuid
@@ -7,30 +12,13 @@ if (getCookie("id") == "") {
 }
 const idSession = ids;
 const USER_ID = ids;
-idSession.textContent = USER_ID
-getHistory()
-//////////////////////
-function go2top() {
-    window.scrollTo({
-        top:0,
-        left:0,
-        behavior:"smooth"
-    });
-}
-function go2down() {
-    window.scrollTo({
-        top:document.documentElement.scrollHeight,
-        left:0,
-        behavior:"smooth"
-    });
-}
-function todown_now() {
-    window.scrollTo(0, document.documentElement.scrollHeight);
-}
+idSession.textContent = USER_ID;
+getHistory();
 
 var modal = document.getElementById("example_modal");
 var btn = document.getElementById("example_btn");
 var span = document.getElementsByClassName("close_box")[0];
+
 btn.onclick = function() {
     modal.style.display = "block";
 }
@@ -42,10 +30,7 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
-layer.config({
-   offset: '400px',
-});
-
+//Copy and edit data
 var _copy = new ClipboardJS('.copy_btn');
 _copy.on('success', function(e) {
     layer.msg('复制成功',{time:800});
@@ -86,15 +71,10 @@ $(document).on('click','#edit_data', function(e) {
         document.dispatchEvent(keyEvent);
     },50);
 });
-function auto_grow(element) {
-    element.style.height = "5px";
-    element.style.height = (element.scrollHeight)+"px";
-}
-
+//style table switch
 $(document).on('click','#switch_btn', function(e) {
     var theme = document.getElementsByTagName('link')[1];
     var theme1 = document.getElementsByTagName('link')[2];
-
     // Change the value of href attribute 
     // to change the css sheet.
     if (theme.getAttribute('href') == 'css/day/common.css?v1.1') {
@@ -113,12 +93,19 @@ const msgerInput = get("#transcript");
 const msgerChat = get("#article-wrapper");
 const msgerSendBtn = get(".send-btn");
 const restart_chat = get("#restart_chat");
+const prompt_tips = get(".prompt_tips");
 // Icons made by Freepik from www.flaticon.com
 const BOT_IMG = "static/big_clever.svg";
 const PERSON_IMG = "static/human.svg";
 const BOT_NAME = "大聪明";
 const PERSON_NAME = "你";
 // Function to delete chat history records for a user ID using the API
+setTimeout(function() {
+    if (document.getElementsByClassName('msg').length == 0) {
+        prompt_tips.style.display = "block";
+    }
+},500);
+
 function deleteChatHistory(userId) {
 
     layer.confirm('这将清除历史聊天记录,你确定？', {
@@ -154,7 +141,7 @@ $("#transcript").on('keydown', function (event) {
     if (event.keyCode == 13) {
         const msgText = msgerInput.value;
         if (!msgText) return;
-
+        
         appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
         msgerInput.value = "";
 
@@ -162,11 +149,25 @@ $("#transcript").on('keydown', function (event) {
     }
 });
 
+//Default prompt_tips click
+$(".list_block").click(function () {
+    elementID = event.srcElement.id;
+    tip_prompt = $("#"+elementID).text();
+    
+    if (!tip_prompt) return;
+
+    appendMessage(PERSON_NAME, PERSON_IMG, "right", tip_prompt);
+    msgerInput.value = "";
+
+    sendMsg(tip_prompt)
+});
+
 $(".example_line").click(function () {
     elementID = event.srcElement.id;
     example_prompt = $("#"+elementID).text();
-    modal.style.display = "none";
+    
     if (!example_prompt) return;
+    modal.style.display = "none";
 
     appendMessage(PERSON_NAME, PERSON_IMG, "right", example_prompt);
     msgerInput.value = "";
@@ -179,12 +180,35 @@ msgerSendBtn.addEventListener('click', event => {
 
     const msgText = msgerInput.value;
     if (!msgText) return;
-
+    
     appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
+    
     msgerInput.value = "";
-
     sendMsg(msgText)
 });
+
+function auto_grow(element) {
+    element.style.height = "5px";
+    element.style.height = (element.scrollHeight)+"px";
+}
+
+function go2top() {
+    window.scrollTo({
+        top:0,
+        left:0,
+        behavior:"smooth"
+    });
+}
+function go2down() {
+    window.scrollTo({
+        top:document.documentElement.scrollHeight,
+        left:0,
+        behavior:"smooth"
+    });
+}
+function todown_now() {
+    window.scrollTo(0, document.documentElement.scrollHeight);
+}
 
 function getHistory() {
     var formData = new FormData();
@@ -236,7 +260,7 @@ function appendMessage(name, img, side, text, id) {
 }
 
 function sendMsg(msg) {
-
+    prompt_tips.style.display = "none";
     msgerSendBtn.disabled = true
     var formData = new FormData();
     formData.append('msg', msg);
