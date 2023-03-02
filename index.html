@@ -1,47 +1,47 @@
 <html lang="zh-CN">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=450, maximum-scale=1.0, user-scalable=no">
-	<title>人工大聪明--Chat.sysrv.net</title>
+    <title>人工大聪明--Chat.sysrv.net</title>
     <link rel="shortcut icon" href="favicon.png">
-	<link rel="stylesheet" href="css/day/common.css?v1.1">
-	<link rel="stylesheet" href="css/day/style.css?v1.1">
+    <link rel="stylesheet" href="css/day/common.css?v1.1">
+    <link rel="stylesheet" href="css/day/style.css?v1.1">
 </head>
 
 <body>
-	<div class="layout-wrap">
-		<header class="layout-header" style="position: sticky;top: 0;z-index: 1;">
-			<div class="container" data-flex="main:justify cross:start">
-				<div class="header-logo">
-					<h2 class="logo">
+    <div class="layout-wrap">
+        <header class="layout-header" style="position: sticky;top: 0;z-index: 1;">
+            <div class="container" data-flex="main:justify cross:start">
+                <div class="header-logo">
+                    <h2 class="logo">
                         <a class="links" href="https://chat.sysrv.net/">
                             <img class="head-logo" src="static/header_logo.svg">
                             <span class="logo-title">人工大聪明</span>
                         </a>
                     </h2>
-				</div>
+                </div>
                 <div id="function_box" style="padding-top:10px;">
                     <img class="icon" id="switch_btn" src="static/switch_btn.svg" style="margin:0 10 0 10;" title="切换主题">
                     <img class="icon" id="example_btn" src="static/example.svg" title="有趣用例">
                 </div>
-			</div>
-		</header>
-		<div class="layout-content">
-			<div class="container">
-				<article class="article" id="article">
-					<div class="article-box">
-						<div class="precast-block" id="title-box" data-flex="main:left">
-							<div class="input-group">
-								<span style="text-align: center;color:#9ca2a8;margin:2">&nbsp;&nbsp;ChatGPT版本：</span>
-								<select id="model" class="btn-default form-control" style="background-color: rgb(164,165,179);min-width:100px;max-width:150px;outline:none">
+            </div>
+        </header>
+        <div class="layout-content">
+            <div class="container">
+                <article class="article" id="article">
+                    <div class="article-box">
+                        <div class="precast-block" id="title-box" data-flex="main:left">
+                            <div class="input-group">
+                                <span style="text-align: center;color:#9ca2a8;margin:2">&nbsp;&nbsp;ChatGPT版本：</span>
+                                <select id="model" class="btn-default form-control" style="background-color: rgb(164,165,179);min-width:100px;max-width:150px;outline:none">
                                     <option value="gpt-3.5-turbo">GPT-3.5(最新)</option>
-								</select>
-								<span style="text-align: center;color:#9ca2a8;margin:2">&nbsp;&nbsp;APIKEY：</span>
-								<input type="password" class="form-control" placeholder="sk-xxxxxxxxxx" maxlength="100" id="key" value="" style="background-color: rgb(164,165,179);min-width:200px;max-width:280px">
-							</div>
-						</div>
-						<ul id="article-wrapper">
+                                </select>
+                                <span style="text-align: center;color:#9ca2a8;margin:2">&nbsp;&nbsp;APIKEY：</span>
+                                <input type="password" class="form-control" placeholder="sk-xxxxxxxxxx" maxlength="100" id="key" value="" style="background-color: rgb(164,165,179);min-width:200px;max-width:280px">
+                            </div>
+                        </div>
+                        <ul id="article-wrapper">
                             <div class="prompt_tips" style="display:none">
                                 <div class="index_text" data-flex="main:center dir:top cross:center">
                                 基于OPENAI的语言模型调用工具。<br>
@@ -66,10 +66,10 @@
                                     </div>
                                 </div>
                             </div>
-						</ul>
-						<div class="creating-loading" data-flex="main:center dir:top cross:center">
-							<div class="semi-circle-spin"></div>
-						</div>
+                        </ul>
+                        <div class="creating-loading" data-flex="main:center dir:top cross:center">
+                            <div class="semi-circle-spin"></div>
+                        </div>
                         <div id="fixed-blocks" >
                             <svg height="30" ></svg>
                             <div id="fixed-block">
@@ -87,11 +87,11 @@
                                 </div>
                             </div>
                         </div>
-					</div>
-				</article>
-			</div>
-		</div>
-	</div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
     <div id="example_modal" class="modal_box">
         <div class="modal-content">
             <span class="close_box" title="关闭">&times;</span>
@@ -114,7 +114,7 @@
     <script src="https://s3.pstatp.com/cdn/expire-1-w/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
     <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/layer/3.5.1/layer.min.js" type="application/javascript"></script>
-	<script src="js/_chat.js"></script>
+    <script src="js/_chat.js"></script>
 </body>
 
 </html>
