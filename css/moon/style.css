@@ -6,7 +6,7 @@
 }
 
 .logo {
-	margin-top: 0px;
+    margin-top: 0px;
     margin-bottom: 0px;
 }
 
@@ -235,27 +235,28 @@ body .layui-layer-page {
 }
 
 #title-box {
-	border:var(--zhuluan-primary-border-radius);
-	border-radius:var(--zhuluan-primary-border-radius);
-	background-color:#40414f;
+    border:var(--zhuluan-primary-border-radius);
+    border-radius:var(--zhuluan-primary-border-radius);
+    background-color:#40414f;
     box-shadow: 0 0 5px 0 rgb(0 0 0 / 40%);
     margin: 10 0 0 0;
 }
 #article-wrapper {
     min-height:calc(125vh - 550px);
-	border-radius:var(--zhuluan-primary-border-radius);
-	background-color:#40414f;
+    border-radius:var(--zhuluan-primary-border-radius);
+    background-color:#40414f;
     margin-bottom:0px;
 
 }
 #kw-target-box {
-	border:0px solid #40414f;
+    border:0px solid #40414f;
     border-radius:var(--zhuluan-primary-border-radius);
     -webkit-border-radius:var(--zhuluan-primary-border-radius);
     -moz-border-radius:var(--zhuluan-primary-border-radius);
     -ms-border-radius:var(--zhuluan-primary-border-radius);
     -o-border-radius:var(--zhuluan-primary-border-radius);
-	height:20px;
+    height:20px;
+    box-shadow: 0 0 5px 0 rgb(0 0 0 / 40%);
 }
 
 .article-box {
@@ -272,7 +273,7 @@ body .layui-layer-page {
 }
 #fixed-block {
     background-color:#40414F;
-	border-radius:var(--zhuluan-primary-border-radius);
+    border-radius:var(--zhuluan-primary-border-radius);
     position: relative;
     bottom: 15;
 }
@@ -355,7 +356,7 @@ li.article-title {
     color:#d5d5d5;
     font-size:15px;
     font-weight: bold;
-	border-radius:15px;
+    border-radius:15px;
     margin:5
 }
 li.article-content {
@@ -364,7 +365,7 @@ li.article-content {
     color:#00000085;
     font-size:15px;
     font-weight: bold;
-	border-radius:15px;
+    border-radius:15px;
     margin:5
 }
 
@@ -389,8 +390,8 @@ li.article-content {
 }
 .layout-content {
     padding:0 !important;
-	max-width:1024px;
-	margin:0 auto;
+    max-width:1024px;
+    margin:0 auto;
 }
 @media screen and (max-width:768px) {
     #popup {
