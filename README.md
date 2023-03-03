@@ -12,3 +12,15 @@
 PHP > 7.4 and Sqlite3
 
 github.com/orhanerday/OpenAI
+
+##Docker快速搭建
+
+```sh
+git clone https://github.com/orhanerday/ChatGPT.git
+```
+```sh
+docker build -t big-chat .
+```
+```sh
+docker run -p 8000:8000 -e OPENAI_API_KEY=sk-xxxxxxx big-chat
+```
