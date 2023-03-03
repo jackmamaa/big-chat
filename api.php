@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get the user ID from the request data
     $user_id = $_POST['user_id'];
     // Prepare and execute a SELECT statement to retrieve the chat history data
-    $stmt = $db->prepare('SELECT human, ai FROM chat_history WHERE user_id = :user_id ORDER BY id ASC');
+    $stmt = $db->prepare('SELECT human, ai, date FROM chat_history WHERE user_id = :user_id ORDER BY id ASC');
     $stmt->bindValue(':user_id', $user_id, SQLITE3_TEXT);
     $result = $stmt->execute();
 

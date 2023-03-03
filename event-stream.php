@@ -13,7 +13,7 @@ const ASSISTANT = "assistant";
 $model = $_GET['model'];
 $open_ai_key = $_GET['key'];
 if (empty($open_ai_key)) {
-    $open_ai_key = getenv( 'OPENAI_API_KEY' );
+    $open_ai_key = $_SERVER['Public_KEY'];
     $tokens = 500;
 } else {
     $tokens = 2048;
