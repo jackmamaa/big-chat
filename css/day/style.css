@@ -126,22 +126,22 @@ body .layui-layer-title {
 }
 
 body .layui-layer-dialog  {
-    background-color: #fff;
+    background-color: #eee;
     border-radius:15px;
 }
 body .layui-layer-btn {
     text-align: center;
     padding-bottom: 10;
 }
-.layui-layer-btn0 {
-    margin: 0 20 0 20 !important;
-}
+
+.layui-layer-btn0,
 .layui-layer-btn1 {
     margin: 0 20 0 20 !important;
+    border-radius: 5px !important;
 }
 
 body .layui-layer-page {
-    background-color: #fff;
+    background-color: #eee;
     border-radius:15px;
     max-width:720px;
     width:80%;
@@ -158,6 +158,7 @@ body .layui-layer-page {
     max-height: 250px;
     font-size: 20px;
     width: 100%;
+    height: auto;
 }
 
 .example_line {
@@ -453,8 +454,8 @@ input:checked + label::after {
   --body-bg: #202123;
   --msger-bg: #444654;
   --border: 2px solid #1e1e1e;
-  --left-msg-bg: #97ffa8;
-  --right-msg-bg: #1eb6ff;
+  --left-msg-bg: #81ff95;
+  --right-msg-bg: #00acff;
 }
 
 .msger {
