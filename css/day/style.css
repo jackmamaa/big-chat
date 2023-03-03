@@ -512,7 +512,7 @@ input:checked + label::after {
 .msg-img {
   width: 35px;
   height: 35px;
-  margin: 0 5 0 5;
+  margin: 0 1.5% 0 1.5%;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
