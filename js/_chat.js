@@ -12,13 +12,27 @@ if (getCookie("id") == "") {
 }
 const idSession = ids;
 const USER_ID = ids;
+const prompt_tips = get(".prompt_tips");
 idSession.textContent = USER_ID;
-getHistory();
-
+$.ajax({
+    url:getHistory(),
+    success:function(){
+        setTimeout(function() {
+            if (document.getElementsByClassName('msg').length == 0) {
+                prompt_tips.style.display = "block";
+            }
+        },300);
+    }
+})
+//setTimeout(function() {
+//    if (document.getElementsByClassName('msg').length == 0) {
+//        prompt_tips.style.display = "block";
+//    }
+//},0);
+// The example on long
 var modal = document.getElementById("example_modal");
 var btn = document.getElementById("example_btn");
 var span = document.getElementsByClassName("close_box")[0];
-
 btn.onclick = function() {
     modal.style.display = "block";
 }
@@ -30,7 +44,7 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
-//Copy and edit data
+// Copy and edit data
 var _copy = new ClipboardJS('.copy_btn');
 _copy.on('success', function(e) {
     layer.msg('复制成功',{time:600});
@@ -57,7 +71,7 @@ $(document).on('click','#edit_data', function(e) {
             var edit_enter = $("#edit_box").val() || top.$("#edit_box").val();
             if (!edit_enter) return;
 
-            appendMessage(PERSON_NAME, PERSON_IMG, "right", edit_enter);
+            appendMessage(PERSON_NAME, PERSON_IMG, "right", edit_enter, formatDate(new Date()));
             msgerInput.value = "";
 
             sendMsg(edit_enter);
@@ -73,7 +87,7 @@ $(document).on('click','#edit_data', function(e) {
     },50);
 });
 
-//Style table switch
+// Style table switch
 $(document).on('click','#switch_btn', function(e) {
     var theme = document.getElementsByTagName('link')[1];
     var theme1 = document.getElementsByTagName('link')[2];
@@ -95,18 +109,11 @@ const msgerInput = get("#transcript");
 const msgerChat = get("#article-wrapper");
 const msgerSendBtn = get(".send-btn");
 const restart_chat = get("#restart_chat");
-const prompt_tips = get(".prompt_tips");
 const BOT_IMG = "static/big_clever.svg";
 const PERSON_IMG = "static/human.svg";
 const BOT_NAME = "大聪明";
 const PERSON_NAME = "你";
 // Function to delete chat history records for a user ID using the API
-setTimeout(function() {
-    if (document.getElementsByClassName('msg').length == 0) {
-        prompt_tips.style.display = "block";
-    }
-},500);
-
 function deleteChatHistory(userId) {
 
     layer.confirm('这将清除历史聊天记录,你确定？', {
@@ -132,32 +139,26 @@ function deleteChatHistory(userId) {
     });
 }
 
-// Event listener for the Delete button click
-restart_chat.addEventListener('click', event => {
-    event.preventDefault();
-    deleteChatHistory(USER_ID);
-});
-
+// Default send evnet
 $("#transcript").on('keydown', function (event) {
     if (event.keyCode == 13) {
         const msgText = msgerInput.value;
         if (!msgText) return;
         
-        appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
+        appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText, formatDate(new Date()));
         msgerInput.value = "";
 
         sendMsg(msgText)
     }
 });
 
-//Default prompt_tips click
 $(".list_block").click(function () {
     elementID = event.srcElement.id;
     tip_prompt = $("#"+elementID).text();
     
     if (!tip_prompt) return;
 
-    appendMessage(PERSON_NAME, PERSON_IMG, "right", tip_prompt);
+    appendMessage(PERSON_NAME, PERSON_IMG, "right", tip_prompt, formatDate(new Date()));
     msgerInput.value = "";
 
     sendMsg(tip_prompt)
@@ -170,7 +171,7 @@ $(".example_line").click(function () {
     if (!example_prompt) return;
     modal.style.display = "none";
 
-    appendMessage(PERSON_NAME, PERSON_IMG, "right", example_prompt);
+    appendMessage(PERSON_NAME, PERSON_IMG, "right", example_prompt, formatDate(new Date()));
     msgerInput.value = "";
 
     sendMsg(example_prompt)
@@ -182,10 +183,16 @@ msgerSendBtn.addEventListener('click', event => {
     const msgText = msgerInput.value;
     if (!msgText) return;
     
-    appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
+    appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText, formatDate(new Date()));
     
     msgerInput.value = "";
     sendMsg(msgText)
+});
+
+// The restart button click
+restart_chat.addEventListener('click', event => {
+    event.preventDefault();
+    deleteChatHistory(USER_ID);
 });
 
 function auto_grow(element) {
@@ -218,18 +225,16 @@ function getHistory() {
         .then(response => response.json())
         .then(chatHistory => {
             for (const row of chatHistory) {
-                appendMessage(PERSON_NAME, PERSON_IMG, "right", row.human);
-                appendMessage(BOT_NAME, BOT_IMG, "left", row.ai, "");
+                appendMessage(PERSON_NAME, PERSON_IMG, "right", row.human, row.date);
+                appendMessage(BOT_NAME, BOT_IMG, "left", row.ai, row.date, "");
+                indexs = 1;
             }
+            indexs = 1;
         })
         .catch(error => console.error(error));
 }
-function appendMessage(name, img, side, text, id) {
-    /*const chars = {
-        '<': '&lt;',
-        '>': '&gt;'
-    };
-    text = text.replace(/[<>]/g, m => chars[m]);*/
+function appendMessage(name, img, side, text, date, id) {
+    indexs = 1;
     text = text.replace(/[&<>"']/g, function(match) {
         return "&#" + match.charCodeAt(0) + ";";
     });
@@ -244,7 +249,7 @@ function appendMessage(name, img, side, text, id) {
         <div class="msg-bubble">
             <div class="msg-info">
                 <div class="msg-info-name">${name}</div>
-                <div class="msg-info-time">${formatDate(new Date())}</div>
+                <div class="msg-info-time">${date}</div>
             </div>
             <div class="msg-text"><pre class="content" style="margin:auto;" id=a${id}>${text}</pre></div>
         </div>
@@ -264,6 +269,8 @@ function sendMsg(msg) {
     prompt_tips.style.display = "none";
     msgerSendBtn.disabled = true
     var formData = new FormData();
+    var dates = formatDate(new Date());
+    formData.append('date', dates);
     formData.append('msg', msg);
     formData.append('user_id', USER_ID);
     fetch('/send-message.php', {method: 'POST', body: formData})
@@ -273,7 +280,7 @@ function sendMsg(msg) {
         var Model = $("#model").val();
         var KEY = $("#key").val();
         const eventSource = new EventSource(`/event-stream.php?chat_history_id=${data.id}&id=${encodeURIComponent(USER_ID)}&model=${Model}&key=${KEY}`);
-        appendMessage(BOT_NAME, BOT_IMG, "left", "", uuid);
+        appendMessage(BOT_NAME, BOT_IMG, "left", "", dates, uuid);
         const div = document.getElementById('a'+uuid);
 
         eventSource.onmessage = function (e) {
@@ -303,10 +310,12 @@ function get(selector, root = document) {
 }
 
 function formatDate(date) {
+    
+    const ymd = date.toLocaleDateString();
     const hours = "0" + date.getHours();
     const minute = "0" + date.getMinutes();
 
-    return `${hours.slice(-2)}:${minute.slice(-2)}`;
+    return `${ymd} ${hours.slice(-2)}:${minute.slice(-2)}`;
 }
 
 function random(min, max) {
