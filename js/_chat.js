@@ -1,11 +1,11 @@
 //Global
 layer.config({
-   offset: '400px',
+   offset: '400px'
 });
 //Check history
 if (getCookie("id") == "") {
     uuid = uuidv4()
-    document.cookie = "id=" + uuid
+    document.cookie = "id=" + uuid;
     var ids = uuid;
 } else {
     var ids = getCookie("id");
@@ -48,7 +48,10 @@ $(document).on('click','#edit_data', function(e) {
         type: 1,
         title: '编辑问题',
         btn: ['提交','取消'],
-        content: "<div style='display:flex;justify-content:center;'><textarea id='edit_box' oninput='auto_grow(this)' autosize>"+text+"</textarea></div>",
+        content: `
+        <div style='display:flex;justify-content:center;'>
+            <textarea id='edit_box' oninput='auto_grow(this)' autosize>${text}</textarea>
+        </div>`,
         yes:function (index,layero) {
             layer.closeAll();
             var edit_enter = $("#edit_box").val() || top.$("#edit_box").val();
@@ -71,7 +74,7 @@ $(document).on('click','#edit_data', function(e) {
         document.dispatchEvent(keyEvent);
     },50);
 });
-//style table switch
+//Style table switch
 $(document).on('click','#switch_btn', function(e) {
     var theme = document.getElementsByTagName('link')[1];
     var theme1 = document.getElementsByTagName('link')[2];
@@ -252,9 +255,9 @@ function appendMessage(name, img, side, text, id) {
     `;
     msgerChat.insertAdjacentHTML("beforeend", msgHTML);
     if (side == "left") {
-        $("."+holder).append('<div title="点击复制" style="width:35px;margin:0 5 0 5;"><svg t="1676979873149" class="copy_btn" id="copy_data" data-clipboard-target="#a'+id+'" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6847" width="25" height="25"><path d="M576 384a64 64 0 0 1 64 64v341.333333a64 64 0 0 1-64 64H234.666667a64 64 0 0 1-64-64V448a64 64 0 0 1 64-64h341.333333z m0 64H234.666667v341.333333h341.333333V448z m-64 192v64H298.666667v-64h213.333333zM789.333333 170.666667a64 64 0 0 1 64 64v341.333333a64 64 0 0 1-64 64h-106.666666v-64h106.666666V234.666667H448v106.666666h-64v-106.666666a64 64 0 0 1 64-64h341.333333zM512 533.333333v64H298.666667v-64h213.333333z" fill="#707070" p-id="6848"></path></svg></div>');
+        $("."+holder).append(`<div title="点击复制" style="width:35px;margin:0 5 0 5;"><svg t="1676979873149" class="copy_btn" id="copy_data" data-clipboard-target=a${id} viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6847" width="25" height="25"><path d="M576 384a64 64 0 0 1 64 64v341.333333a64 64 0 0 1-64 64H234.666667a64 64 0 0 1-64-64V448a64 64 0 0 1 64-64h341.333333z m0 64H234.666667v341.333333h341.333333V448z m-64 192v64H298.666667v-64h213.333333zM789.333333 170.666667a64 64 0 0 1 64 64v341.333333a64 64 0 0 1-64 64h-106.666666v-64h106.666666V234.666667H448v106.666666h-64v-106.666666a64 64 0 0 1 64-64h341.333333zM512 533.333333v64H298.666667v-64h213.333333z" fill="#707070" p-id="6848"></path></svg></div>`);
     } else {
-        $("."+holder).append('<div title="编辑提问" style="width:35px;margin:0 5 0 5;"><svg t="1677572686028" class="a'+id+'" id="edit_data" data-clipboard-target="#a'+id+'" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2880" width="20" height="20"><path d="M862.709333 116.042667a32 32 0 1 1 45.248 45.248L455.445333 613.813333a32 32 0 1 1-45.258666-45.258666L862.709333 116.053333zM853.333333 448a32 32 0 0 1 64 0v352c0 64.8-52.533333 117.333333-117.333333 117.333333H224c-64.8 0-117.333333-52.533333-117.333333-117.333333V224c0-64.8 52.533333-117.333333 117.333333-117.333333h341.333333a32 32 0 0 1 0 64H224a53.333333 53.333333 0 0 0-53.333333 53.333333v576a53.333333 53.333333 0 0 0 53.333333 53.333333h576a53.333333 53.333333 0 0 0 53.333333-53.333333V448z" fill="#707070" p-id="2881"></path></svg></div>');
+        $("."+holder).append(`<div title="编辑提问" style="width:35px;margin:0 5 0 5;"><svg t="1677572686028" class=a${id} id="edit_data" data-clipboard-target=#a${id} viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2880" width="20" height="20"><path d="M862.709333 116.042667a32 32 0 1 1 45.248 45.248L455.445333 613.813333a32 32 0 1 1-45.258666-45.258666L862.709333 116.053333zM853.333333 448a32 32 0 0 1 64 0v352c0 64.8-52.533333 117.333333-117.333333 117.333333H224c-64.8 0-117.333333-52.533333-117.333333-117.333333V224c0-64.8 52.533333-117.333333 117.333333-117.333333h341.333333a32 32 0 0 1 0 64H224a53.333333 53.333333 0 0 0-53.333333 53.333333v576a53.333333 53.333333 0 0 0 53.333333 53.333333h576a53.333333 53.333333 0 0 0 53.333333-53.333333V448z" fill="#707070" p-id="2881"></path></svg></div>`);
     }
     todown_now();
 }
@@ -302,10 +305,10 @@ function get(selector, root = document) {
 }
 
 function formatDate(date) {
-    const h = "0" + date.getHours();
-    const m = "0" + date.getMinutes();
+    const hours = "0" + date.getHours();
+    const minute = "0" + date.getMinutes();
 
-    return `${h.slice(-2)}:${m.slice(-2)}`;
+    return `${hours.slice(-2)}:${minute.slice(-2)}`;
 }
 
 function random(min, max) {
