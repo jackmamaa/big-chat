@@ -9,11 +9,13 @@
 
 # 环境 & 支持
 
+
 PHP > 7.4 and Sqlite3
 
-github.com/orhanerday/OpenAI
+https://github.com/orhanerday/OpenAI
 
 # Docker快速搭建
+
 
 ```sh
 git clone https://github.com/jackmamaa/big-chat.git
