@@ -13,10 +13,10 @@ PHP > 7.4 and Sqlite3
 
 github.com/orhanerday/OpenAI
 
-##Docker快速搭建
+# Docker快速搭建
 
 ```sh
-git clone https://github.com/orhanerday/ChatGPT.git
+git clone https://github.com/jackmamaa/big-chat.git
 ```
 ```sh
 docker build -t big-chat .
