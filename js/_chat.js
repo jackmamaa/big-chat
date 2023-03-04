@@ -12,23 +12,16 @@ if (getCookie("id") == "") {
 }
 const idSession = ids;
 const USER_ID = ids;
-const prompt_tips = get(".prompt_tips");
+const Home_tips = get(".prompt_tips");
 idSession.textContent = USER_ID;
 $.ajax({
     url:getHistory(),
     success:function(){
         setTimeout(function() {
-            if (document.getElementsByClassName('msg').length == 0) {
-                prompt_tips.style.display = "block";
-            }
-        },300);
+            Home_tips_show();
+        },1000);
     }
 })
-//setTimeout(function() {
-//    if (document.getElementsByClassName('msg').length == 0) {
-//        prompt_tips.style.display = "block";
-//    }
-//},0);
 // The example on long
 var modal = document.getElementById("example_modal");
 var btn = document.getElementById("example_btn");
@@ -115,7 +108,6 @@ const BOT_NAME = "大聪明";
 const PERSON_NAME = "你";
 // Function to delete chat history records for a user ID using the API
 function deleteChatHistory(userId) {
-
     layer.confirm('这将清除历史聊天记录,你确定？', {
         btn: ['确认','点错了'],
         title: '启动新会话'
@@ -192,7 +184,7 @@ msgerSendBtn.addEventListener('click', event => {
 // The restart button click
 restart_chat.addEventListener('click', event => {
     event.preventDefault();
-    deleteChatHistory(USER_ID);
+    deleteChatHistory(USER_ID,'');
 });
 
 function auto_grow(element) {
@@ -227,14 +219,19 @@ function getHistory() {
             for (const row of chatHistory) {
                 appendMessage(PERSON_NAME, PERSON_IMG, "right", row.human, row.date);
                 appendMessage(BOT_NAME, BOT_IMG, "left", row.ai, row.date, "");
-                indexs = 1;
+                functionIsLoad = false;
             }
-            indexs = 1;
         })
         .catch(error => console.error(error));
 }
+
+function Home_tips_show(){
+    if (document.getElementsByClassName('msg').length == 0) {
+        Home_tips.style.display = "block";
+    }
+}
+
 function appendMessage(name, img, side, text, date, id) {
-    indexs = 1;
     text = text.replace(/[&<>"']/g, function(match) {
         return "&#" + match.charCodeAt(0) + ";";
     });
@@ -266,7 +263,7 @@ function appendMessage(name, img, side, text, date, id) {
 }
 
 function sendMsg(msg) {
-    prompt_tips.style.display = "none";
+    Home_tips.style.display = "none";
     msgerSendBtn.disabled = true
     var formData = new FormData();
     var dates = formatDate(new Date());
