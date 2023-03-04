@@ -184,7 +184,7 @@ msgerSendBtn.addEventListener('click', event => {
 // The restart button click
 restart_chat.addEventListener('click', event => {
     event.preventDefault();
-    deleteChatHistory(USER_ID,'');
+    deleteChatHistory(USER_ID);
 });
 
 function auto_grow(element) {
