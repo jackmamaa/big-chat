@@ -26,7 +26,8 @@ $chat_history_id = $_GET['chat_history_id'];
 $id = $_GET['id'];
 
 // Retrieve the data in ascending order by the id column
-$results = $db->query('SELECT * FROM main.chat_history ORDER BY id ASC');
+$query = "SELECT * FROM main.chat_history WHERE user_id = '{$id}' ORDER BY id ASC";
+$results = $db->query($query);
 
 $history[] = [ROLE => SYS, CONTENT => "You are a helpful assistant."];
 while ($row = $results->fetchArray()) {
