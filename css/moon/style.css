@@ -164,6 +164,7 @@ body .layui-layer-page {
     font-size: 20px !important;
     max-height: 300px !important;
     color:#40414f !important;
+    height: auto;
 }
 
 .example_line {
