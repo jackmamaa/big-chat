@@ -13,7 +13,7 @@ const ASSISTANT = "assistant";
 $model = $_GET['model'];
 $open_ai_key = $_GET['key'];
 if (empty($open_ai_key)) {
-    $open_ai_key = getenv('OPENAI_API_KEY');
+    $open_ai_key = $_SERVER['Public_KEY'];
     $tokens = 500;
 } else {
     $tokens = 2048;
@@ -60,6 +60,7 @@ $txt = "";
 $complete = $open_ai->chat($opts, function ($curl_info, $data) use (&$txt) {
     if ($obj = json_decode($data) and $obj->error->message != "") {
         error_log(json_encode($obj->error->message));
+        $txt .= json_encode($obj->error->message);
     } else {
         echo $data;
         $clean = str_replace("data: ", "", $data);
@@ -80,7 +81,5 @@ $row = ['id' => $chat_history_id,'ai' => $txt];
 $stmt->bindValue(':id', $row['id']);
 $stmt->bindValue(':ai', $row['ai']);
 $stmt->execute();
-
-//
 // Close the database connection
 $db->close();

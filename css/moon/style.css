@@ -147,18 +147,23 @@ body .layui-layer-page {
     width:80%;
 }
 
+#transcript,
 #edit_box {
     resize: none;
     background: none;
     border: none;
     outline: none;
-    color: #40414f;
+    color: #fff;
     height: 20px;
     overflow-y: hidden;
-    max-height: 250px;
-    font-size: 20px;
+    max-height: 200px;
+    font-size: 15px;
     width: 100%;
-    height: auto;
+}
+#edit_box {
+    font-size: 20px !important;
+    max-height: 300px !important;
+    color:#40414f !important;
 }
 
 .example_line {
@@ -255,8 +260,8 @@ body .layui-layer-page {
     -moz-border-radius:var(--zhuluan-primary-border-radius);
     -ms-border-radius:var(--zhuluan-primary-border-radius);
     -o-border-radius:var(--zhuluan-primary-border-radius);
-    height:20px;
     box-shadow: 0 0 5px 0 rgb(0 0 0 / 40%);
+    padding:10px;
 }
 
 .article-box {
@@ -516,7 +521,7 @@ input:checked + label::after {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  border-radius: 50%;
+  border-radius: 20%;
 }
 
 .msg-bubble {

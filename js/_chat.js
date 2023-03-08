@@ -132,7 +132,7 @@ function deleteChatHistory(userId) {
 }
 
 // Default send evnet
-$("#transcript").on('keydown', function (event) {
+/*$("#transcript").on('keydown', function (event) {
     if (event.keyCode == 13) {
         const msgText = msgerInput.value;
         if (!msgText) return;
@@ -142,7 +142,7 @@ $("#transcript").on('keydown', function (event) {
 
         sendMsg(msgText)
     }
-});
+});*/
 
 $(".list_block").click(function () {
     elementID = event.srcElement.id;
@@ -279,7 +279,6 @@ function sendMsg(msg) {
         const eventSource = new EventSource(`/event-stream.php?chat_history_id=${data.id}&id=${encodeURIComponent(USER_ID)}&model=${Model}&key=${KEY}`);
         appendMessage(BOT_NAME, BOT_IMG, "left", "", dates, uuid);
         const div = document.getElementById('a'+uuid);
-
         eventSource.onmessage = function (e) {
             if (e.data == "[DONE]") {
                 msgerSendBtn.disabled = false
@@ -293,12 +292,13 @@ function sendMsg(msg) {
             }
         };
         eventSource.onerror = function (e) {
-            msgerSendBtn.disabled = false
+            msgerSendBtn.disabled = false;
             console.log(e);
+            div.innerHTML += '已达到最大上下文限制，请开启新会话！';
             eventSource.close();
         };
     })
-    .catch(error => console.error(error));
+    .catch(error => console.error(error)); 
 }
 
 // Utils

@@ -817,7 +817,7 @@ a.unlinks-deco {
     -ms-border-radius:;
     -o-border-radius:;
 }
-#kw-target-box #transcript {
+/*#kw-target-box #transcript {
     display:block;
     height:36px;
     width:100%;
@@ -825,7 +825,7 @@ a.unlinks-deco {
     font-size:15px;
     font-weight:500;
     color:#000;
-}
+}*/
 #kw-tags {
     border-top:none;
     height:28px;

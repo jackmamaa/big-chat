@@ -78,9 +78,10 @@
                                         <img class="icon" src="static/micro_phone.svg">
                                     </div>
                                     <div id="target-box" class="box">
-                                        <input type="text" name="transcript" placeholder="点击输入(实时流回响应，无需漫长等待)" id="transcript" autofocus></input>
+                                        <div style="display:flex;justify-content:center;">
+                                            <textarea id="transcript" oninput="auto_grow(this)" placeholder="点击输入(实时流回响应，无需漫长等待)" autofocus></textarea>
+                                        </div>
                                     </div>
-                                    
                                     <div class="send-btn" title="发送">
                                         <img class="icon" src="static/send_btn.svg">
                                     </div>
