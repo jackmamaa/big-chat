@@ -163,6 +163,7 @@ body .layui-layer-page {
 #edit_box {
     font-size: 20px !important;
     max-height: 300px !important;
+    height: auto;
 }
 
 .example_line {
