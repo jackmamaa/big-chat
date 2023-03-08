@@ -132,17 +132,17 @@ function deleteChatHistory(userId) {
 }
 
 // Default send evnet
-/*$("#transcript").on('keydown', function (event) {
-    if (event.keyCode == 13) {
+$("#transcript").on('keydown', function (event) {
+    if (event.ctrlKey && event.keyCode === 13) {
         const msgText = msgerInput.value;
         if (!msgText) return;
         
         appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText, formatDate(new Date()));
+        
         msgerInput.value = "";
-
         sendMsg(msgText)
     }
-});*/
+});
 
 $(".list_block").click(function () {
     elementID = event.srcElement.id;
