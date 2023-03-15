@@ -235,18 +235,6 @@ $(document).on('click','.register_btn', function() {
             }
         }
     });
-
-// Default send evnet
-$("#transcript").on('keydown', function (event) {
-    if (event.ctrlKey && event.keyCode === 13) {
-        const msgText = msgerInput.value;
-        if (!msgText) return;
-        
-        appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText, formatDate(new Date()));
-        
-        msgerInput.value = "";
-        sendMsg(msgText)
-    }
 });
 
 $(document).on('click','.list_block', function() {
