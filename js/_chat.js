@@ -276,7 +276,7 @@ $(document).on('click','.example_line', function() {
     example_prompt = $("#"+elementID).text();
     
     if (!example_prompt) return;
-    modal.style.display = "none";
+    example_btn.style.display = "none";
 
     appendMessage(USER_NAME, PERSON_IMG, "right", example_prompt, formatDate(new Date()));
     msgerInput.value = "";
