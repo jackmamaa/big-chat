@@ -231,14 +231,12 @@ $(document).on('click','.register_btn', function() {
                 const confirm_pwds = $(".confirm_pwds").val() || top.$(".confirm_pwds").val();
                 const verfiy_name = /^[0-9a-zA-Z\u4e00-\u9fa5]{6,12}$/;
                 const verfiy_pwds = /^[^&;|\\\s\u4e00-\u9fa5\uff00-\uffff\u3000-\u303f\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]{8,16}$/;
-                if (confirm_pwds === user_pwds ) {
-                    layer.msg('密码两次输入不一致！',{time:msg_timeout})
+                if ((verfiy_name.test(user_name) && verfiy_pwds.test(user_pwds))) {
+                    if (confirm_pwds === user_pwds ) {
+                        user_register(user_name, user_pwds)
+                    } else layer.msg('两次密码输入不一致！',{time:msg_timeout});
                 } else {
-                    if ((verfiy_name.test(user_name) && verfiy_pwds.test(user_pwds))) {
-                        user_register(user_name, user_pwds);
-                    } else {
-                        layer.msg('用户名或密码不符合要求！',{time:msg_timeout});
-                    }
+                    layer.msg('用户名或密码不符合要求！',{time:msg_timeout});
                 }
                 lastClickTime = now;
             }
