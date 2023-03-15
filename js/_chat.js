@@ -208,12 +208,16 @@ $(document).on('click','.register_btn', function() {
         skin: 'login_box',
         content: `
             <div class="input_msg">
-                <span style="font-size:15px">用户名：</span>
+                <span style="font-size:15px">用&nbsp;&nbsp;户&nbsp;&nbsp;名：</span>
                 <input class='user_name input_box' style='ontline:none' placeholder="username" autofocus>
             </div>
             <div class="input_msg">
-                <span style="font-size:15px">密&nbsp;&nbsp;&nbsp;&nbsp;码：</span>
+                <span style="font-size:15px">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</span>
                 <input type="password" class='user_pwds input_box' style='ontline:none' placeholder="password">
+            </div>
+            <div class="input_msg">
+                <span style="font-size:15px">确认密码：</span>
+                <input type="password" class='confirm_pwds input_box' style='ontline:none' placeholder="password">
             </div>
             <a class="regisger_tip" style="color:#9ca2a8;margin: 2">用户名6~12位(中/英/数字),密码8~16位(&;|\和中文除外).</a>`,
         yes:function (index,layero) {
@@ -224,12 +228,17 @@ $(document).on('click','.register_btn', function() {
             } else {
                 const user_name = $(".user_name").val() || top.$(".user_name").val();
                 const user_pwds = $(".user_pwds").val() || top.$(".user_pwds").val();
+                const confirm_pwds = $(".confirm_pwds").val() || top.$(".confirm_pwds").val();
                 const verfiy_name = /^[0-9a-zA-Z\u4e00-\u9fa5]{6,12}$/;
                 const verfiy_pwds = /^[^&;|\\\s\u4e00-\u9fa5\uff00-\uffff\u3000-\u303f\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]{8,16}$/;
-                if (verfiy_name.test(user_name) && verfiy_pwds.test(user_pwds)) {
-                    user_register(user_name, user_pwds);
+                if (confirm_pwds === user_pwds ) {
+                    layer.msg('密码两次输入不一致！',{time:msg_timeout})
                 } else {
-                    layer.msg('用户名或密码不符合要求！',{time:msg_timeout});
+                    if ((verfiy_name.test(user_name) && verfiy_pwds.test(user_pwds))) {
+                        user_register(user_name, user_pwds);
+                    } else {
+                        layer.msg('用户名或密码不符合要求！',{time:msg_timeout});
+                    }
                 }
                 lastClickTime = now;
             }
