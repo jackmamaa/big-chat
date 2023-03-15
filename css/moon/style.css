@@ -1,9 +1,4 @@
-.logo-title {
-    line-height:55px;
-    color:#fff;
-    position: absolute;
-    padding-left:5px;
-}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300&display=swap');
 
 .logo {
     margin-top: 0px;
@@ -28,7 +23,6 @@
     margin: 0 10 20 10;
     border-radius: 10px;
     background-color: #343541;
-    color: #d9d9d9;
     box-shadow: 5px 5px 0 0 #0000004d;
     max-width:300px;
     font-weight: bold;
@@ -54,30 +48,39 @@
     overflow-y:auto;
     min-height:200px;
 }
-
-.head-logo {
-    height:auto;
-    padding-top: 6px;
+.login_box {
+    width: auto !important;
+    min-width:360px;
+    min-height:220px;
+}
+.input_msg {
+    padding:10
+}
+.input_box {
+    height: 28px;
+    padding: 0px 5px;
+    font-size: 15px;
+    color: #555;
+    background-color: #fff !important;
+    border: 1px solid #0000002b;
+    border-radius: 4px;
 }
 
-/* The Modal (background) */
 .modal_box {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 300px; /* Location of the box */
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 300px;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
 }
 
-/* Modal Content */
 .modal-content {
-    /*background-color: #57596c;*/
     margin: auto;
     padding: 10px;
     width: 80%;
@@ -92,7 +95,6 @@
     transform: translate(-50%, -50%);
 }
 
-/* The Close Button */
 .close_box {
     color: #aaaaaa;
     float: right;
@@ -117,6 +119,7 @@ body .url_link {
 body .layui-layer-msg {
     color:#40414f;
     font-weight: bold;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
 }
 body .layui-layer-content {
     padding:10px !important;
@@ -154,12 +157,13 @@ body .layui-layer-page {
     border: none;
     outline: none;
     color: #fff;
-    height: 20px;
+    height: 15px;
     overflow-y: hidden;
     max-height: 200px;
     font-size: 15px;
     width: 100%;
 }
+
 #edit_box {
     font-size: 20px !important;
     max-height: 300px !important;
@@ -177,14 +181,12 @@ body .layui-layer-page {
     font-weight: bold;
     width: fit-content;
 }
-.example_line:hover {
-    cursor: pointer;
-    box-shadow: 0 0 15px 0 white;
-}
+
 
 .msg-img:hover,
 .icon:hover,
 .copy_btn:hover,
+#del_msg:hover,
 #edit_data:hover,
 #re_question:hover {
     cursor:pointer;
@@ -192,48 +194,53 @@ body .layui-layer-page {
     border-radius:var(--zhuluan-primary-border-radius);
     transition:all .5s
 }
+
+.example_line:hover {
+    cursor: pointer;
+    box-shadow: 0 0 15px 0 white;
+}
+
 #edit_data {
     position: relative;
     float: right;
 }
+
 .copy_btn {
     position: relative;
     right: 5;
 }
 
-/*#put_msg {
-    padding: 10;
-    background-color: rgb(52 53 65);
-    border-radius: 15px;
-    color: #ffffff73;
-    position: fixed;
-    font-size: 15px;
-    left: 50%;
-    top: 50%;
-    margin: -42.5px 0 0 -42.5px;
-    z-index: 1;
-    display: none;
-}*/
-
+/*Microphone*/
 #start-button {
     position:relative;
     right:5px;
 }
 
-/*#clean {
-    display: inline-block;width: 30px;border-radius: 50%;position: fixed;bottom: 34%;right: 7.8%;
-}*/
-#restart_chat {
-    display: inline-block;width: 30px;border-radius: 50%;position: fixed;bottom: 28%;right: 7.8%;
+#del_chat {
+    display: inline-block;
+    width: 30px;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 24%;
+    right: 5%;
 }
-/*#example_btn {
-    display: inline-block;width: 30px;border-radius: 50%;position: fixed;bottom: 24%;right: 7.8%;
-}*/
+
+#go2downd,
 #go2topd {
-    display: inline-block;width: 30px;border-radius: 50%;position: fixed;bottom: 20%;right: 7.8%;
+    visibility: hidden;
+    width: 30px;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 18%;
+    right: 5%;
 }
-#go2downd {
-    display: inline-block;width: 30px;border-radius: 50%;position: fixed;bottom: 16%;right: 7.8%;
+
+@keyframes hideAnimation {
+    to {
+        visibility: hidden;
+        width: 0;
+        height: 0;
+    }
 }
 
 .container {
@@ -266,7 +273,7 @@ body .layui-layer-page {
 }
 
 .article-box {
-    min-height:calc(102vh - 68px) !important;
+    min-height:calc(102vh - 75px) !important;
     position:relative;
     display:flex;
     flex-direction:column;
@@ -375,13 +382,6 @@ li.article-content {
     margin:5
 }
 
-/*.answer,
-.question { 
-    margin: 0 5 0 5;
-    position: relative;
-    right: 5;
-}*/
-
 .article .creating-loading {
     display:none;
     position:absolute;
@@ -399,6 +399,155 @@ li.article-content {
     max-width:1024px;
     margin:0 auto;
 }
+/**/
+.adaptive {
+    padding:18px;
+    display:none;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+.nav_title .adaptive {
+    color: #707070;
+}
+
+.head-logo {
+    padding-top: 5px;
+}
+
+.user_ctl {
+    align-self: center;
+    font-size: 15;
+    font-weight: bold;
+    color: #fff;
+}
+
+.user_ctl:hover {
+    cursor: pointer;
+    text-decoration-line: underline;
+    color: #00acff;
+}
+
+.logo-title {
+    line-height: 55px;
+    color: #707070;
+    position: absolute;
+    padding-left: 5px;
+    font-size: 20;
+    font-weight: bold;
+    font-style: inherit;
+}
+
+.status_info {
+    color: #70707070;
+    padding-left: 5px;
+    font-weight: bold;
+    align-items: center;
+    padding-top: 5px;
+}
+.status_info a {
+    padding-left: 10px;
+}
+
+.session {
+    display: contents;
+}
+
+.form-control {
+    background-color:#525252;
+    color:#9da2a8;
+    border: 1px solid #0000006b;
+}
+
+.chat_session_mgr {
+    border-radius: 10px;
+    outline: none;
+    max-width: 200px;
+    min-width: 150px;
+    height: 27px;
+    background-color: #343541;
+    font-weight: bolder;
+    color: #d5d5d5;
+}
+
+@media screen and (max-width: 930px) {
+    .nav_title a[class*="user_name"],
+    .nav_title a[class*="max_token"] {display: none;}
+    .nav_title a.adaptive {
+        float: right;
+        display: block;
+    }
+    @media (hover: hover) and (pointer: fine) {
+        .nav_title a.adaptive:hover {
+            cursor: pointer;
+            background-color:#424242;
+        }
+    }
+    .nav_title .status_info {
+        margin-right: 35;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .nav_title div:not(.header) {display: none;}
+}
+
+@media screen and (max-width: 930px),
+screen and (max-width: 768px) {
+    .nav_title.responsive {
+        position: relative;
+        width: 100%;
+    }
+    .nav_title.responsive .adaptive {
+        position: fixed;
+        right: 0;
+        top: 0;
+    }
+    .nav_title.responsive div:not(.header):not(.adaptive) {
+        display: block;
+        position: absolute;
+        top: 50px;
+        width: 100%;
+        box-shadow: 0 20px 20px 1px rgba(0, 0, 0, 0.2);
+    }
+    .nav_title.responsive .header {
+        padding-left: 15px;
+    }
+    .nav_title.responsive .status_info {
+        padding:0;
+    }
+    .nav_title.responsive .session,
+    .nav_title.responsive .title_btn:not(.add_chat) {
+        float: none;
+        display: block;
+        text-align: center;
+        color: #707070;
+        background-color:#202123;
+        font-size: 15px;
+        font-weight: bold;
+        border-bottom: 1px solid #3c3c3c;
+        padding:20px;
+    }
+    .nav_title.responsive .title_btn:hover {
+        background-color:#42444c;
+    }
+    .nav_title.responsive .add_chat {
+        position: absolute;
+        margin-left: 10px;
+    }
+}
+/**/
+@media (max-width: 992px) {
+    .article-box {
+        margin: 0 -10px;
+        padding: 0 10 0 10;
+    }
+    #article-wrapper {
+        min-height: calc(130vh - 550px) !important;
+    }
+}
+
 @media screen and (max-width:768px) {
     #popup {
         height:350px;
@@ -412,10 +561,9 @@ pre {
     word-break:break-all;
     word-wrap:break-word;
     white-space:pre-wrap;
+    font-family: 'Noto Sans SC', sans-serif;
 }
-input {
-    display:none;
-}
+
 label {
     display:block;
     width:40px;
@@ -599,6 +747,7 @@ input:checked + label::after {
   font-weight: bold;
   cursor: pointer;
 }
+
 .msger-send-btn:hover {
   background: #4c5563;
 }

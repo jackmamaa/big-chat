@@ -473,7 +473,7 @@ html {
     font-size:15px;
     line-height:1.42857143;
     color:#555;
-    background-color:#fff !important;
+    background-color:#fff;
     border:1px solid #0000002b;
     border-radius:4px;
     -webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, .075);
@@ -1337,18 +1337,13 @@ a.unlinks-deco {
     color:var(--zhuluan-custom-d8-color);
     margin-right:3px;
 }
-.container {
+.container:not(:has(.nav_title.responsive)) {
     padding-right:15px;
     padding-left:15px;
     margin-right:auto;
     margin-left:auto
 }
 
-@media (min-width:768px) {
-    .container {
-        width:750px
-    }
-}
 @media (min-width:992px) {
     .container {
         width:980px

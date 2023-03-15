@@ -10,24 +10,33 @@ const USER = "user";
 const SYS = "system";
 const ASSISTANT = "assistant";
 
+$chat_history_id = $_GET['chat_history_id'];
+$user_id = $_GET['user_id'];
+$session_id = $_GET['session_id'];
+
+// Open the SQLite database
+$db = new SQLite3('db.sqlite');
+
+// Query max_token for user
+$tokens = $db->querySingle("SELECT max_token FROM main.user_info WHERE user_id = '{$user_id}'");
+if (empty($tokens)) {
+    $tokens = 300;
+}
+
 $model = $_GET['model'];
 $open_ai_key = $_GET['key'];
+
 if (empty($open_ai_key)) {
     $open_ai_key = getenv('OPENAI_API_KEY');
     $tokens = 500;
+
 } else {
     $tokens = 2048;
 }
 $open_ai = new OpenAi($open_ai_key);
-// Open the SQLite database
-$db = new SQLite3('db.sqlite');
-
-$chat_history_id = $_GET['chat_history_id'];
-$id = $_GET['id'];
 
 // Retrieve the data in ascending order by the id column
-$query = "SELECT * FROM main.chat_history WHERE user_id = '{$id}' ORDER BY id ASC";
-$results = $db->query($query);
+$results = $db->query("SELECT * FROM main.chat_history WHERE session_id = '{$session_id}' ORDER BY id ASC");
 
 $history[] = [ROLE => SYS, CONTENT => "You are a helpful assistant."];
 while ($row = $results->fetchArray()) {
