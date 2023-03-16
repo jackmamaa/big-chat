@@ -1,6 +1,6 @@
 // Obtain theme style and user session through cookie
 if (getCookie("id") == "") {
-    const validTime = 60 * 60 * 24 * 7 * 1000;
+    const validTime = 60 * 60 * 24 * 30 * 1000;
     const expireDate = new Date(Date.now() + validTime);
     const expireUTC = expireDate.toUTCString();
     const uuid = uuidv4();
@@ -29,8 +29,11 @@ const BOT_IMG = "static/big_clever.svg";
 const PERSON_IMG = "static/human.svg";
 const BOT_NAME = "大聪明";
 const msg_timeout = 2000;
-var update_session_title;
+var printedIds = {};
+var printQueue = [];
+var isPrinting = false;
 var login_status = false;
+var update_session_title;
 var user_session = ids;
 var chat_current_session;
 var chat_session_mgr;
@@ -208,16 +211,12 @@ $(document).on('click','.register_btn', function() {
         skin: 'login_box',
         content: `
             <div class="input_msg">
-                <span style="font-size:15px">用&nbsp;&nbsp;户&nbsp;&nbsp;名：</span>
+                <span style="font-size:15px">用户名：</span>
                 <input class='user_name input_box' style='ontline:none' placeholder="username" autofocus>
             </div>
             <div class="input_msg">
-                <span style="font-size:15px">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</span>
+                <span style="font-size:15px">密&nbsp;&nbsp;&nbsp;&nbsp;码：</span>
                 <input type="password" class='user_pwds input_box' style='ontline:none' placeholder="password">
-            </div>
-            <div class="input_msg">
-                <span style="font-size:15px">确认密码：</span>
-                <input type="password" class='confirm_pwds input_box' style='ontline:none' placeholder="password">
             </div>
             <a class="regisger_tip" style="color:#9ca2a8;margin: 2">用户名6~12位(中/英/数字),密码8~16位(&;|\和中文除外).</a>`,
         yes:function (index,layero) {
@@ -228,13 +227,10 @@ $(document).on('click','.register_btn', function() {
             } else {
                 const user_name = $(".user_name").val() || top.$(".user_name").val();
                 const user_pwds = $(".user_pwds").val() || top.$(".user_pwds").val();
-                const confirm_pwds = $(".confirm_pwds").val() || top.$(".confirm_pwds").val();
                 const verfiy_name = /^[0-9a-zA-Z\u4e00-\u9fa5]{6,12}$/;
                 const verfiy_pwds = /^[^&;|\\\s\u4e00-\u9fa5\uff00-\uffff\u3000-\u303f\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]{8,16}$/;
-                if ((verfiy_name.test(user_name) && verfiy_pwds.test(user_pwds))) {
-                    if (confirm_pwds === user_pwds ) {
-                        user_register(user_name, user_pwds)
-                    } else layer.msg('两次密码输入不一致！',{time:msg_timeout});
+                if (verfiy_name.test(user_name) && verfiy_pwds.test(user_pwds)) {
+                    user_register(user_name, user_pwds);
                 } else {
                     layer.msg('用户名或密码不符合要求！',{time:msg_timeout});
                 }
@@ -668,10 +664,10 @@ function sendMsg(msg) {
                 msgerSendBtn.disabled = false
                 eventSource.close();
             } else {
-                var txt = JSON.parse(e.data).choices[0].delta.content;
+                let txt = JSON.parse(e.data).choices[0].delta.content;
                 if (txt != undefined) {
-                    div.innerHTML += txt;
-                    todown_now();
+                    let strId = Math.random().toString(36).substr(2, 9);
+                    addToPrintQueue(txt, div, strId);
                 }
             }
         };
@@ -685,22 +681,46 @@ function sendMsg(msg) {
     .catch(error => console.error(error)); 
 }
 
-// Utils
-function print_verbatim(str,Element) {
-    let str_ = ''
-    let i = 0
-    let timer = setInterval(()=>{
-        if(str_.length<str.length){
-            str_ += str[i++]
-            $(Element).text(str_+'_');
-        }else{
-            clearInterval(timer)
-            $(Element).text(str_);
-        }
-        todown_now();
-    },25)
+function addToPrintQueue(str, div, id) {
+    printQueue.push({ str, div, id });
+    if (!isPrinting) {
+        isPrinting = true;
+        printNextFromQueue();
+    }
 }
 
+function printNextFromQueue() {
+    if (printQueue.length > 0) {
+        let { str, div, id } = printQueue.shift();
+        if (!printedIds[id]) {
+            print_verbatim(str, div).then(() => {
+                printedIds[id] = true;
+                printNextFromQueue();
+            });
+        } else {
+            printNextFromQueue();
+        }
+    } else {
+        isPrinting = false;
+    }
+}
+
+function print_verbatim(str, Element) {
+    return new Promise((resolve) => {
+        let i = 0;
+        let timer = setInterval(() => {
+            if (i < str.length) {
+                Element.innerHTML += str[i++];
+            } else {
+                clearInterval(timer);
+                resolve();
+            }
+            todown_now();
+        }, 20);
+    });
+}
+
+// Utils
 function auto_grow(element) {
     element.style.height = "5px";
     element.style.height = (element.scrollHeight)+"px";
@@ -788,7 +808,7 @@ function uuidv4() {
 
 function randomString(len) {
     len = len || 32;
-    var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+    var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz';
     var maxPos = $chars.length;
     var pwd = '';
     for (i = 0; i < len; i++) {
