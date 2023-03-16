@@ -3,11 +3,13 @@
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Create a new SQLite database connection
     $db = new SQLite3('db.sqlite');
-    // Get the user ID from the request data
-    //$user_id = $_POST['user_id'];
+    
+    // Get the session ID from the request data
     $session_id = $_POST['session_id'];
+    
     // Prepare and execute a SELECT statement to retrieve the chat history data
     $stmt = $db->prepare('SELECT id, human, ai, date FROM chat_history WHERE session_id = :session_id ORDER BY id ASC');
+    
     //$stmt->bindValue(':user_id', $user_id, SQLITE3_TEXT);
     $stmt->bindValue(':session_id', $session_id, SQLITE3_TEXT);
     $result = $stmt->execute();
@@ -146,15 +148,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'LOG_IN') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'LOG_OUT') {
-    // Get the username that needs to logout
+    // Get the user name and user id that needs to logout
     $user_name = $_GET['user_name'];
+    $user_id = $_GET['user_id'];
 
     // Create a new SQLite database connection
     $db = new SQLite3('db.sqlite');
 
     // Prepare update statement, set persistent user_id to null
-    $stmt = $db->prepare('UPDATE main.user_info SET cache_session = NULL WHERE user_name = :user_name');
+    $stmt = $db->prepare('UPDATE main.user_info SET cache_session = NULL WHERE user_name = :user_name AND user_id = :user_id');
     $stmt->bindValue(':user_name', $user_name, SQLITE3_TEXT);
+    $stmt->bindValue(':user_id', $user_id, SQLITE3_TEXT);
     $result = $stmt->execute();
 
     // Close the database connection
