@@ -2,13 +2,11 @@
 
 <div align="center">
 
-https://user-images.githubusercontent.com/119478410/225585298-5610207d-b56d-4920-855e-c240fd848899.mp4
+![demo_1](https://user-images.githubusercontent.com/119478410/225586850-6641fee3-614f-414b-916b-f3a31ec075c4.gif)
 
 </div>
 
 # 环境 & 支持
-
-
 
 PHP > 7.4 and Sqlite3
 
