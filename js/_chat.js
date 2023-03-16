@@ -198,7 +198,7 @@ $(document).on('click','.login_btn', function() {
 });
 
 $(document).on('click','.logout_btn', function() {
-    user_logout(USER_NAME);
+    user_logout(USER_NAME, USER_ID);
 });
 
 $(document).on('click','.register_btn', function() {
@@ -560,8 +560,8 @@ function user_login(user_name, user_pwds) {
     .catch(error => console.error(error));
 }
 
-function user_logout(user_name) {
-    fetch('/api.php?user_name=' + user_name, {
+function user_logout(user_name,user_id) {
+    fetch(`/api.php?user_name=${user_name}&user_id=${user_id}`, {
         method: 'LOG_OUT',
         headers: {'Content-Type': 'application/json'}
     })
