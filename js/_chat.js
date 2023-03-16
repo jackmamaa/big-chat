@@ -628,7 +628,7 @@ function appendMessage(name, img, side, text, date, msg_id, id) {
                 </div>
                 <div class="msg-text"><pre class="content" style="margin:auto;" id=a${id}>${text}</pre></div>
             </div>
-            <div class=${holder}></div>
+            <div class="data-io ${holder}"></div>
         </div>`;
     msgerChat.insertAdjacentHTML("beforeend", msgHTML);
     if (side == "left") {
