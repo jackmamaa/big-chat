@@ -150,6 +150,14 @@ body .layui-layer-page {
     width:80%;
 }
 
+.data-io {
+    visibility: hidden;
+}
+
+.msg:hover .data-io {
+    visibility: visible;
+}
+
 #transcript,
 #edit_box {
     resize: none;
