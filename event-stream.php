@@ -27,7 +27,7 @@ $model = $_GET['model'];
 $open_ai_key = $_GET['key'];
 
 if (empty($open_ai_key)) {
-    $open_ai_key = getenv('Public_KEY');
+    $open_ai_key = getenv('OPENAI_API_KEY');
 } else {
     $tokens = 2048;
 }
