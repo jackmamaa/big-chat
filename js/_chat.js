@@ -32,6 +32,7 @@ const msg_timeout = 2000;
 var printedIds = {};
 var printQueue = [];
 var isPrinting = false;
+var cursorState = true;
 var login_status = false;
 var update_session_title;
 var user_session = ids;
@@ -315,6 +316,7 @@ function main() {
                     setTimeout(function(){
                         chat_session_mgr.value = chat_current_session;
                     },100);
+                    update_session_title = 1;
                 }
 
                 // Record browsing sessions before logout
@@ -377,10 +379,10 @@ function Del_chat() {
     }, function(){
         layer.closeAll();
         loading = layer.load(2, 0);
-        fetch('/api.php?session_id=' + chat_current_session, {
-            method: 'DELETE',
-            headers: {'Content-Type': 'application/json'}
-        })
+        var formData = new FormData();
+        formData.append('action', 'DEL_SESSION');
+        formData.append('session_id', chat_current_session);
+        fetch('/api.php', { method: 'POST', body: formData})
         .then(response => {
             layer.close(loading);
             if (!response.ok) {
@@ -388,7 +390,9 @@ function Del_chat() {
             }
             if (login_status) {
                 get_session().then(() => {
-                    get_session_msg();
+                    if (chat_session_mgr.childNodes.length > 0) {
+                        get_session_msg();
+                    } else Add_chat();
                 });
             } else Add_chat();
         })
@@ -401,10 +405,11 @@ function Del_chat() {
 // Delete a message in the current chat session
 function del_msg(msg_id, USER_ID) {
     loading = layer.load(2);
-    fetch(`/api.php?user_id=${USER_ID}&msg_id=${msg_id}`, {
-        method: 'DEL_MSG',
-        headers: {'Content-Type': 'application/json'}
-    })
+    var formData = new FormData();
+    formData.append('action', 'DEL_MSG');
+    formData.append('user_id', USER_ID);
+    formData.append('msg_id', msg_id);
+    fetch('/api.php', { method: 'POST', body: formData})
     .then(response => {
         if (response.ok) {
             document.querySelector(`#a${msg_id}.left-msg`).remove();
@@ -417,10 +422,10 @@ function del_msg(msg_id, USER_ID) {
 // Check login status
 function check_status() {
     return new Promise((resolve, reject) => {
-        fetch('/api.php?cache_session=' + user_session, {
-            method: 'QUERY_SESSION',
-            headers: {'Content-Type': 'application/json'}
-        })
+        var formData = new FormData();
+        formData.append('action', 'QUERY_SESSION');
+        formData.append('cache_session', user_session);
+        fetch('/api.php', { method: 'POST', body: formData})
         .then(response => response.json())
         .then(_status => {
             document.body.insertAdjacentHTML("beforeend",`
@@ -457,10 +462,10 @@ function check_status() {
 function get_session() {
     return new Promise((resolve, reject) => {
         chat_session_mgr = get(".chat_session_mgr");
-        fetch('/api.php?user_id=' + USER_ID, {
-            method: 'GET_SESSION',
-            headers: {'Content-Type': 'application/json'}
-        })
+        var formData = new FormData();
+        formData.append('action', 'GET_SESSION');
+        formData.append('user_id', USER_ID);
+        fetch('/api.php', { method: 'POST', body: formData})
         .then(response => response.json())
         .then(session => {
             chat_session_mgr.innerHTML = '';
@@ -493,8 +498,9 @@ function get_history() {
     msgerChat.innerHTML = '';
     return new Promise((resolve, reject) => {
         var formData = new FormData();
+        formData.append('action', 'GET_HISTORY');
         formData.append('session_id', chat_current_session);
-        fetch('/api.php', {method: 'POST', body: formData})
+        fetch('/api.php', { method: 'POST', body: formData})
         .then(response => response.json())
         .then(chatHistory => {
             for (const row of chatHistory) {
@@ -542,10 +548,12 @@ function Home_tips_show(){
 // User operation, login, logout, registration
 function user_login(user_name, user_pwds) {
     loading = layer.load(2);
-    fetch(`/api.php?user_name=${user_name}&user_pwds=${user_pwds}&cache_session=${user_session}`, {
-        method: 'LOG_IN',
-        headers: {'Content-Type': 'application/json'}
-    })
+    var formData = new FormData();
+    formData.append('action', 'LOG_IN');
+    formData.append('user_name', user_name);
+    formData.append('user_pwds', user_pwds);
+    formData.append('cache_session', user_session);
+    fetch('/api.php', { method: 'POST', body: formData})
     .then(response => {
         layer.close(loading);
         if (response.status != 200) {
@@ -561,10 +569,15 @@ function user_login(user_name, user_pwds) {
 }
 
 function user_logout(user_name,user_id) {
-    fetch(`/api.php?user_name=${user_name}&user_id=${user_id}`, {
-        method: 'LOG_OUT',
-        headers: {'Content-Type': 'application/json'}
+    fetch('/api.php', {
+        method: 'POST',
+        body: `action=LOG_OUT&user_name=${user_name}&user_id=${user_id}`
     })
+    var formData = new FormData();
+    formData.append('action', 'LOG_OUT');
+    formData.append('user_name', user_name);
+    formData.append('user_id', user_id);
+    fetch('/api.php', { method: 'POST', body: formData})
     .then(response => {
         if (!response.ok) {
             throw new Error('Error Log_out: ' + response.statusText);
@@ -577,10 +590,11 @@ function user_logout(user_name,user_id) {
 
 function user_register(user_name,user_pwds) {
     loading = layer.load(2);
-    fetch(`/api.php?user_name=${user_name}&user_pwds=${user_pwds}`, {
-        method: 'REGISTER',
-        headers: {'Content-Type': 'application/json'}
-    })
+    var formData = new FormData();
+    formData.append('action', 'REGISTER');
+    formData.append('user_name', user_name);
+    formData.append('user_pwds', user_pwds);
+    fetch('/api.php', { method: 'POST', body: formData})
     .then(response => {
         if (response.status === 200) {
             layer.close(loading);
@@ -589,7 +603,7 @@ function user_register(user_name,user_pwds) {
                 layer.closeAll();
             },1000);
         } else {
-            layer.msg('用户名已存在！', {time: msg_timeout});
+            layer.msg('用户已存在！', {time: msg_timeout});
         }
         layer.close(loading);
     })
