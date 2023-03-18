@@ -172,10 +172,10 @@ $(document).on('click','.login_btn', function() {
         skin: 'login_box',
         content: `
             <div class="input_msg">
-                <span style="font-size:15px">用户名：</span><input class='user_name input_box' placeholder="username" autofocus>
+                <span style="font-size:15px">用户名:</span><input class='user_name input_box' placeholder="username" autofocus>
             </div>
             <div class="input_msg">
-                <span style="font-size:15px">密&nbsp;&nbsp;&nbsp;&nbsp;码：</span>
+                <span style="font-size:15px">密&nbsp;&nbsp;&nbsp码:</span>
                 <input type="password" class='user_pwds input_box' placeholder="password">
             </div>`,
         yes:function (index,layero) {
