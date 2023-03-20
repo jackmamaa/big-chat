@@ -33,6 +33,7 @@ var printedIds = {};
 var printQueue = [];
 var isPrinting = false;
 var cursorState = true;
+var menu_switch = false;
 var login_status = false;
 var update_session_title;
 var user_session = ids;
@@ -50,11 +51,9 @@ var close_modal = document.getElementsByClassName("close_box")[0];
 example_btn.onclick = function() {
     example_modal.style.display = "block";
 }
-
 close_modal.onclick = function() {
     example_modal.style.display = "none";
 }
-
 window.onclick = function(event) {
     if (event.target == example_modal) {
         example_modal.style.display = "none";
@@ -296,7 +295,9 @@ $(document).on('click','.example_line', function() {
 });
 
 $(document).on('click','.title_btn', function() {
-    if ($('.adaptive').css('display') == 'block') adaptive_menu();
+    if ($('.adaptive').css('display') == 'block' && menu_switch) {
+        adaptive_menu();
+    }
 });
 
 msgerSendBtn.addEventListener('click', event => {
@@ -360,8 +361,19 @@ function adaptive_menu() {
     var nav_title = document.getElementById("navigation");
     if (nav_title.className === "nav_title") {
         nav_title.className += " responsive";
+        menu_switch = true;
+        setTimeout(function() {
+            document.addEventListener('click', function click_listener() {
+                if (event.target !== get(".chat_session_mgr")) {
+                    nav_title.className = "nav_title";
+                    menu_switch = false;
+                }
+                document.removeEventListener('click', click_listener);
+            });
+        },100);
     } else {
         nav_title.className = "nav_title";
+        menu_switch = false;
     }
 }
 
@@ -435,28 +447,22 @@ function check_status() {
         fetch('/api.php', { method: 'POST', body: formData})
         .then(response => response.json())
         .then(_status => {
-            document.body.insertAdjacentHTML("beforeend",`
-                <div id="del_chat" onclick="Del_chat()" title="删除会话">
-                    <img class="icon" src="static/del_chat.svg">
-                </div>`);
-            if (_status == '') {
+            if (!_status) {
                 const insert_status = `
                     <a class="title_btn user_ctl login_btn">登录</a>
                     <a class="title_btn user_ctl register_btn">注册</a>`;
                 status_info.insertAdjacentHTML("afterbegin", insert_status);
             } else {
-                for (const row of _status) {
-                    const insert_status = `
-                        <a class="title_btn user_name">用户名：${row.user_name}&nbsp;</a>
-                        <a class="title_btn max_token">默认最大回复：${row.max_token}&nbsp;</a>
-                        <a class="session">会话管理：<select class="chat_session_mgr"></select>
-                            <img class="title_btn icon add_chat" onclick="Add_chat()" title="添加会话" src="static/add_chat.svg">
-                        </a>
-                        <a class="title_btn user_ctl logout_btn">注销</a>`;
-                    status_info.insertAdjacentHTML("afterbegin", insert_status);
-                    USER_NAME = row.user_name;
-                    USER_ID = row.user_id;
-                }
+                const insert_status = `
+                    <a class="title_btn user_name">用户名：${_status.user_name}&nbsp;</a>
+                    <a class="title_btn max_token">默认最大回复：${_status.max_token}&nbsp;</a>
+                    <a class="session">会话管理：<select class="chat_session_mgr"></select>
+                        <img class="title_btn icon add_chat" onclick="Add_chat()" title="添加会话" src="static/add_chat.svg">
+                    </a>
+                    <a class="title_btn user_ctl logout_btn">注销</a>`;
+                status_info.insertAdjacentHTML("afterbegin", insert_status);
+                USER_NAME = _status.user_name;
+                USER_ID = _status.user_id;
                 login_status = true;
             }
             resolve();
@@ -660,7 +666,7 @@ function appendMessage(name, img, side, text, date, msg_id, id) {
     }
     todown_now();
 }
-
+var test;
 //Send a context message, and get a stream back response
 function sendMsg(msg) {
     if (get('.prompt_tips')) get('.prompt_tips').style.display = "none";
@@ -693,6 +699,7 @@ function sendMsg(msg) {
             }
         };
         eventSource.onerror = function (e) {
+            test = e;
             msgerSendBtn.disabled = false;
             console.log(e);
             div.innerHTML += '已达到最大上下文限制，请开启新会话或删除一些消息！';
